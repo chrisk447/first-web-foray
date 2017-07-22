@@ -1,0 +1,28 @@
+<html>
+<div id="chartContainer">
+  <script src="http://d3js.org/d3.v4.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
+  <script type="text/javascript">
+    var svg = dimple.newSvg("#chartContainer", 590, 400);
+    d3.tsv("stacked", function (data) {
+      data = dimple.filterData(data, "year", ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017"])
+      var myChart = new dimple.chart(svg, data);
+      myChart.setBounds(60, 30, 505, 305);
+      var x = myChart.addCategoryAxis("x", "year");
+      x.addOrderRule("Date");
+      myChart.addPctAxis("y", "rarity");
+      myChart.addSeries('brand', dimple.plot.bar);
+      myChart.addLegend(200, 10, 380, 20, "right");
+      myChart.draw();
+    });
+  </script>
+</div>
+</html>
+
+<!--
+Steps:
+1. Run %python -m SimpleHTTPServer 8000
+2. Copy/paste and go to 127.0.0.1.8000 in browser
+3. Go to html file
+4. See if it ran!
+-->
